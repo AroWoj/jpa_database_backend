@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
+import static java.rmi.server.LogStream.log;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Slf4j
@@ -158,6 +159,7 @@ public class AuthenticationService {
 
     user.setEnabled(true);
     userRepository.save(user);
+
     savedToken.setValidatedAt(LocalDateTime.now());
     activateTokenRepository.save(savedToken);
 

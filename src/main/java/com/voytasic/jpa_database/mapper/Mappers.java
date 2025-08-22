@@ -20,7 +20,7 @@ public class Mappers {
         var addressesDTO = user.getAddresses().stream()
                 .map(Mappers::toAddressDTO)
                 .collect(Collectors.toSet());
-        return new UserDTO(user.getName(), user.getAge(), addressesDTO );
+        return new UserDTO(user.getId(), user.getEmail(), user.getName(), user.getAge(), addressesDTO );
     }
 
     public static AddressDTO toAddressDTO(Address address) {

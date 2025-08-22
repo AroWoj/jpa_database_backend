@@ -6,6 +6,7 @@ import com.voytasic.jpa_database.repository.entity.User;
 import com.voytasic.jpa_database.repository.entity.UserDTO;
 import com.voytasic.jpa_database.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,19 +37,24 @@ public class UserController {
         return service.findUserById(id);
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
-        return service.addUser(user);
+//    @PostMapping("/users")
+//    public ResponseEntity<UserDTO> addUser(@RequestBody User user) {
+//        return service.addUser(user);
+//    }
+    @PatchMapping("/users/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable(name="id") Long id, @RequestBody User user) {
+        return service.updateUser(id, user);
     }
 
     @PostMapping("/users/{id}/address")
-    public ResponseEntity<UserDTO> updateUserAddresses(@PathVariable(name="id") Long id, @RequestBody Address address) {
+    public ResponseEntity<UserDTO> addUserAddress(@PathVariable(name="id") Long id, @RequestBody Address address) {
         return service.addUserAddress(id, address);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<UserDTO> removeUserById(@PathVariable(name="id") Long id){
-        return service.removeUserById(id);
+    @ResponseStatus(HttpStatus.OK)
+    public void removeUserById(@PathVariable(name="id") Long id){
+        service.removeUserById(id);
     }
 
 }
